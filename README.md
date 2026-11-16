@@ -1,11 +1,15 @@
 # Driving Scene VLM
 
+[![CI](https://github.com/jatinmallarapu/DrivingSceneVisionLanguageModel/actions/workflows/ci.yml/badge.svg)](https://github.com/jatinmallarapu/DrivingSceneVisionLanguageModel/actions/workflows/ci.yml)
+
 Fine-tune Qwen2.5-VL on driving-scene question answering and compare it against a zero-shot baseline using a scene-held-out split.
 
 | Checkpoint | Multiple-choice accuracy | Open-answer ROUGE-L |
 | --- | --- | --- |
 | Qwen2.5-VL-3B-Instruct | Pending GPU run | Pending GPU run |
 | QLoRA, rank 16 | Pending GPU run | Pending GPU run |
+
+Run `make test` after installing `service-requirements.txt` and pytest. Gateway tests cover empty and overlong questions, corrupted and blank frames, and preservation of the user-message boundary for adversarial text. The model is mocked in these tests.
 
 This is an offline research evaluation. It produces text answers from images and has no vehicle control interface.
 

@@ -36,6 +36,10 @@ async def predict(
                 raise ValueError("Unsupported frame")
             mime = Image.MIME[frame.format]
             frame.verify()
+        # Verify container integrity first, then decode pixels to reject empty visual inputs.
+        with Image.open(io.BytesIO(raw)) as frame:
+            if all(low == high for low, high in frame.convert("RGB").getextrema()):
+                raise HTTPException(422, "Image must contain visual detail")
     except (UnidentifiedImageError, Image.DecompressionBombError, OSError, ValueError, SyntaxError):
         raise HTTPException(422, "Expected a valid JPEG or PNG frame of at most 16 megapixels") from None
     uri = f"data:{mime};base64,{base64.b64encode(raw).decode('ascii')}"

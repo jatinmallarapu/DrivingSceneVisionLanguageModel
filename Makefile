@@ -7,3 +7,6 @@ eval:
 
 merge:
 	python experiment.py merge --revision "$(REVISION)" --adapter runs/adapter --output models/merged
+
+test:
+	python -m pytest -q
